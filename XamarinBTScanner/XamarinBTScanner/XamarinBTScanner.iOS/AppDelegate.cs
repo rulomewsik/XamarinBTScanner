@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
+using XamarinBTScanner.Contracts.Services;
+using XamarinBTScanner.iOS.Services;
 
 namespace XamarinBTScanner.iOS
 {
@@ -23,8 +26,15 @@ namespace XamarinBTScanner.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-
+            RegisterServices();
+            
             return base.FinishedLaunching(app, options);
+        }
+
+        private static void RegisterServices()
+        {
+            DependencyService.Register<IBluetoothPermissionService, BluetoothPermissionService>();
+            DependencyService.Register<IBluetoothService, BluetoothService>();
         }
     }
 }
