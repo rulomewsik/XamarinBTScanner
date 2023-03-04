@@ -1,14 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:XamarinBTScanner"
-             x:Class="XamarinBTScanner.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+<ContentPage
+    x:Class="XamarinBTScanner.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:XamarinBTScanner"
+    xmlns:models="clr-namespace:XamarinBTScanner.Models;assembly=XamarinBTScanner"
+    xmlns:viewModels="clr-namespace:XamarinBTScanner.ViewModels;assembly=XamarinBTScanner">
+
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="0,80" VerticalOptions="FillAndExpand">
+        <Label
+            HorizontalOptions="Center"
+            Text="Start the scanner! 👇🏻"
+            VerticalOptions="CenterAndExpand" />
+        <Button Command="{Binding StartScannerCommand}" Text="Start Scanner" />
+
+        <CollectionView ItemsSource="{Binding DiscoveredDevices}" VerticalOptions="Center">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout x:DataType="models:BluetoothDevice">
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="{Binding .Name}"
+                            VerticalOptions="CenterAndExpand">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Name}"
+                                    TargetType="Label"
+                                    Value="">
+                                    <Setter Property="Text" Value="{Binding .Identifier}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
-
 </ContentPage>
