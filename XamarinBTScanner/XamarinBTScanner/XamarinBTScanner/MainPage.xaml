@@ -15,13 +15,16 @@
 
     <StackLayout Padding="24" VerticalOptions="FillAndExpand">
         <Label
-            FontAttributes="Bold"
-            FontSize="16"
+            Padding="0,0,0,8"
+            FontSize="24"
             HorizontalOptions="Center"
-            Text="Start the scanner 👇🏻"
-            TextColor="White"
-            VerticalOptions="CenterAndExpand" />
-        <Button Command="{Binding StartScannerCommand}">
+            Text="🐢" />
+        <Button
+            BackgroundColor="White"
+            Command="{Binding StartScannerCommand}"
+            CornerRadius="8"
+            FontSize="16"
+            TextColor="#100E1E">
             <Button.Triggers>
                 <DataTrigger
                     Binding="{Binding IsScanning}"
@@ -37,7 +40,13 @@
                 </DataTrigger>
             </Button.Triggers>
         </Button>
-
+        <ActivityIndicator
+            Margin="0,8"
+            HeightRequest="24"
+            IsRunning="{Binding IsScanning}"
+            IsVisible="{Binding IsScanning}"
+            WidthRequest="24"
+            Color="White" />
         <CollectionView ItemsSource="{Binding DiscoveredDevices}" VerticalOptions="Center">
             <CollectionView.ItemTemplate>
                 <DataTemplate>

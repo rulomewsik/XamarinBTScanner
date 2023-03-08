@@ -20,7 +20,7 @@ namespace XamarinBTScanner.Converters
                 < 0 and >= -40 => "ic_wifi_3.png",
                 < -40 and >= -80 => "ic_wifi_2.png",
                 < -80 and >= -120 => "ic_wifi_1.png",
-                _ => "ic_wifi_1.png"
+                _ => "ic_wifi_4.png"
             };
 
         }
