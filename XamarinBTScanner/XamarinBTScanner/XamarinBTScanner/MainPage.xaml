@@ -4,38 +4,45 @@
     x:Class="XamarinBTScanner.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:XamarinBTScanner"
+    xmlns:controls="clr-namespace:XamarinBTScanner.Controls;assembly=XamarinBTScanner"
     xmlns:models="clr-namespace:XamarinBTScanner.Models;assembly=XamarinBTScanner"
-    xmlns:viewModels="clr-namespace:XamarinBTScanner.ViewModels;assembly=XamarinBTScanner">
+    xmlns:viewModels="clr-namespace:XamarinBTScanner.ViewModels;assembly=XamarinBTScanner"
+    BackgroundColor="#100E1E">
 
     <ContentPage.BindingContext>
         <viewModels:MainViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Padding="0,80" VerticalOptions="FillAndExpand">
+    <StackLayout Padding="24" VerticalOptions="FillAndExpand">
         <Label
+            FontAttributes="Bold"
+            FontSize="16"
             HorizontalOptions="Center"
-            Text="Start the scanner! 👇🏻"
+            Text="Start the scanner 👇🏻"
+            TextColor="White"
             VerticalOptions="CenterAndExpand" />
-        <Button Command="{Binding StartScannerCommand}" Text="Start Scanner" />
+        <Button Command="{Binding StartScannerCommand}">
+            <Button.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsScanning}"
+                    TargetType="Button"
+                    Value="True">
+                    <Setter Property="Text" Value="Stop scanner" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding IsScanning}"
+                    TargetType="Button"
+                    Value="False">
+                    <Setter Property="Text" Value="Start scanner" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
         <CollectionView ItemsSource="{Binding DiscoveredDevices}" VerticalOptions="Center">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout x:DataType="models:BluetoothDevice">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="{Binding .Name}"
-                            VerticalOptions="CenterAndExpand">
-                            <Label.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Name}"
-                                    TargetType="Label"
-                                    Value="">
-                                    <Setter Property="Text" Value="{Binding .Identifier}" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
+                        <controls:DiscoveredDeviceView Device="{Binding}" />
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView
+    x:Class="XamarinBTScanner.Controls.DiscoveredDeviceView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Name="DiscoveredDeviceControl">
+    <ContentView.Content>
+        <StackLayout
+            Padding="8"
+            BackgroundColor="#100E1E"
+            Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding Device.Name, StringFormat='Name: {0}', Source={x:Reference DiscoveredDeviceControl}}"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand" />
+                <ffimageloading:CachedImage
+                    Margin="0,0,0,0"
+                    HorizontalOptions="End"
+                    Source="{Binding Device.Rssi, Source={x:Reference DiscoveredDeviceControl}, Converter={StaticResource RssiToIconConverter}}"
+                    VerticalOptions="Center" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    Text="{Binding Device.Rssi, Source={x:Reference DiscoveredDeviceControl}}"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding Device.Address, StringFormat='Address: {0}', Source={x:Reference DiscoveredDeviceControl}}"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
