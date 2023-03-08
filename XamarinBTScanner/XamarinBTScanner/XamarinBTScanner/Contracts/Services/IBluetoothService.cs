@@ -1,15 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using XamarinBTScanner.Models;
+using XamarinBTScanner.Contracts.Adapters;
 
 namespace XamarinBTScanner.Contracts.Services
 {
     public interface IBluetoothService
     {
-        Task StartScanner(int scanDuration, string serviceUuid);
-        
-        void StopScanner();
-        
-        event EventHandler<BluetoothDevice> DiscoveredDevice;
+        /// <summary>
+        /// Adapter that provides access to the physical bluetooth adapter.
+        /// </summary>
+        IBluetoothAdapter Adapter { get; }
     }
 }

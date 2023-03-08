@@ -6,11 +6,25 @@ using XamarinBTScanner.Contracts.Services;
 using XamarinBTScanner.iOS.Services;
 
 [assembly: Dependency(typeof(BluetoothPermissionService))]
+
 namespace XamarinBTScanner.iOS.Services
 {
     public class BluetoothPermissionService : IBluetoothPermissionService
     {
-        public Task<PermissionStatus> CheckPermission()
+        public async Task<PermissionStatus> CheckAndRequestPermission()
+        {
+            var cbCentralManager = new CBCentralManager();
+            PermissionStatus status;
+            do
+            {
+                status = await CheckPermission();
+                await Task.Delay(200);
+            } while (status == PermissionStatus.Unknown);
+
+            return status;
+        }
+
+        private static Task<PermissionStatus> CheckPermission()
         {
             switch (CBManager.Authorization)
             {
@@ -24,19 +38,6 @@ namespace XamarinBTScanner.iOS.Services
                 default:
                     return Task.FromResult(PermissionStatus.Denied);
             }
-        }
-
-        public async Task<PermissionStatus> RequestPermission()
-        {
-            var cbCentralManager = new CBCentralManager();
-            PermissionStatus status;
-            do
-            {
-                status = await CheckPermission();
-                await Task.Delay(200);
-            } while (status == PermissionStatus.Unknown);
-
-            return status;
         }
     }
 }

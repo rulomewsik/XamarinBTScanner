@@ -5,8 +5,6 @@ namespace XamarinBTScanner.Contracts.Services
 {
     public interface IBluetoothPermissionService
     {
-        Task<PermissionStatus> CheckPermission();
-        
-        Task<PermissionStatus> RequestPermission();
+        Task<PermissionStatus> CheckAndRequestPermission();
     }
 }

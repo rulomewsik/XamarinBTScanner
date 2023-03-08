@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
@@ -24,8 +25,11 @@ namespace XamarinBTScanner.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            CachedImageRenderer.Init();
+            CachedImageRenderer.InitImageSourceHandler();
+            Forms.Init();
             LoadApplication(new App());
+            
             RegisterServices();
             
             return base.FinishedLaunching(app, options);

@@ -11,7 +11,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Resizetizer.NT" Version="0.3.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
+        <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <SharedImage Include="Images\ic_wifi_1.svg" BaseSize="28,20" />
+      <SharedImage Include="Images\ic_wifi_2.svg" BaseSize="28,20" />
+      <SharedImage Include="Images\ic_wifi_3.svg" BaseSize="28,20" />
+      <SharedImage Include="Images\ic_wifi_4.svg" BaseSize="28,20" />
     </ItemGroup>
 </Project>

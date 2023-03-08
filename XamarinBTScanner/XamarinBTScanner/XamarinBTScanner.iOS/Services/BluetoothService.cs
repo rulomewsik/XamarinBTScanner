@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Xamarin.Forms;
@@ -26,9 +25,6 @@ namespace XamarinBTScanner.iOS.Services
 
         private void ManagerOnDiscoveredPeripheral(object sender, CBDiscoveredPeripheralEventArgs e)
         {
-            var device = $"{e.Peripheral.Name} - {e.Peripheral.Identifier.Description}";
-            Debug.WriteLine($"Discovered {device}");
-
             var discoveredDevice = new BluetoothDevice
             {
                 Name = e.Peripheral.Name,
@@ -41,13 +37,11 @@ namespace XamarinBTScanner.iOS.Services
 
         private void ManagerOnUpdatedState(object sender, EventArgs e)
         {
-            Debug.WriteLine($"State = {_manager.State}");
             StateChanged?.Invoke(sender, _manager.State);
         }
 
         public async Task StartScanner(int scanDuration, string serviceUuid)
         {
-            Debug.WriteLine("Scanning started");
             var uuids = string.IsNullOrEmpty(serviceUuid)
                 ? Array.Empty<CBUUID>()
                 : new[] {CBUUID.FromString(serviceUuid)};
@@ -59,7 +53,6 @@ namespace XamarinBTScanner.iOS.Services
 
         public void StopScanner()
         {
-            Debug.WriteLine("Scanning stopped");
             _manager.StopScan();
         }
 
