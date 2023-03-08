@@ -17,8 +17,9 @@ namespace XamarinBTScanner.ViewModels
         #region Properties
 
         private CancellationTokenSource _cancellationTokenSource;
-        
+
         private bool _isScanning;
+
         public bool IsScanning
         {
             private set
@@ -30,8 +31,9 @@ namespace XamarinBTScanner.ViewModels
 
             get => _isScanning;
         }
-        
+
         private ObservableCollection<BluetoothDevice> _discoveredDevices;
+
         public ObservableCollection<BluetoothDevice> DiscoveredDevices
         {
             private set
@@ -43,9 +45,9 @@ namespace XamarinBTScanner.ViewModels
 
             get => _discoveredDevices;
         }
-        
+
         #endregion
-        
+
         #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,6 +71,7 @@ namespace XamarinBTScanner.ViewModels
 
         private readonly IBluetoothPermissionService _bluetoothPermissionService;
         private readonly IBluetoothService _bluetoothService;
+        private readonly IDialogService _dialogService;
 
         #endregion
 
@@ -77,11 +80,12 @@ namespace XamarinBTScanner.ViewModels
         public ICommand StartScannerCommand { get; set; }
 
         #endregion
-        
-        public MainViewModel()
+
+        public MainViewModel(IDialogService dialogService)
         {
             _bluetoothService = DependencyService.Get<IBluetoothService>();
             _bluetoothPermissionService = DependencyService.Get<IBluetoothPermissionService>();
+            _dialogService = dialogService;
 
             StartScannerCommand = new Command(StartScanner);
             _bluetoothService.Adapter.DiscoveredDevice += BluetoothServiceOnDiscoveredDevice;
@@ -96,15 +100,18 @@ namespace XamarinBTScanner.ViewModels
                 IsScanning = _bluetoothService.Adapter.IsScanning;
                 return;
             }
-            
+
             var status = await _bluetoothPermissionService.CheckAndRequestPermission();
             switch (status)
             {
                 case PermissionStatus.Unknown:
+                    await _dialogService.ShowAlertAsync("Permission unknown");
                     break;
                 case PermissionStatus.Denied:
+                    await _dialogService.ShowAlertAsync("Permission denied");
                     break;
                 case PermissionStatus.Disabled:
+                    await _dialogService.ShowAlertAsync("Permission disabled");
                     break;
                 case PermissionStatus.Granted:
                     _cancellationTokenSource = new CancellationTokenSource();
@@ -112,21 +119,22 @@ namespace XamarinBTScanner.ViewModels
                     IsScanning = _bluetoothService.Adapter.IsScanning;
                     break;
                 case PermissionStatus.Restricted:
+                    await _dialogService.ShowAlertAsync("Permission restricted");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
         private void BluetoothServiceOnDiscoveredDevice(object sender, BluetoothDevice e)
         {
             DiscoveredDevices = new ObservableCollection<BluetoothDevice>(_bluetoothService.Adapter.DiscoveredDevices);
             IsScanning = _bluetoothService.Adapter.IsScanning;
         }
-        
+
         private void BluetoothServiceOnScanFailed(object sender, string e)
         {
-            throw new NotImplementedException();
+            _dialogService.ShowAlertAsync("Scan failed, please try again.");
         }
     }
 }

@@ -9,11 +9,10 @@
     xmlns:viewModels="clr-namespace:XamarinBTScanner.ViewModels;assembly=XamarinBTScanner"
     BackgroundColor="#100E1E">
 
-    <ContentPage.BindingContext>
-        <viewModels:MainViewModel />
-    </ContentPage.BindingContext>
-
-    <StackLayout Padding="24" VerticalOptions="FillAndExpand">
+    <StackLayout
+        Padding="24"
+        x:DataType="viewModels:MainViewModel"
+        VerticalOptions="FillAndExpand">
         <Label
             Padding="0,0,0,8"
             FontSize="24"

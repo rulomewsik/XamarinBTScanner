@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using FFImageLoading.Forms.Platform;
@@ -24,6 +25,7 @@ namespace XamarinBTScanner.Droid.Activities
             base.OnCreate(savedInstanceState);
             CachedImageRenderer.Init(false);
             CachedImageRenderer.InitImageViewHandler();
+            UserDialogs.Init(this);
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
             
