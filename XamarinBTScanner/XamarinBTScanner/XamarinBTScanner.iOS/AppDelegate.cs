@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FFImageLoading.Forms.Platform;
+﻿using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+using XamarinBTScanner.Contracts.Adapters;
 using XamarinBTScanner.Contracts.Services;
+using XamarinBTScanner.iOS.Adapters;
 using XamarinBTScanner.iOS.Services;
 
 namespace XamarinBTScanner.iOS
@@ -14,7 +14,7 @@ namespace XamarinBTScanner.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : FormsApplicationDelegate
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -29,9 +29,9 @@ namespace XamarinBTScanner.iOS
             CachedImageRenderer.InitImageSourceHandler();
             Forms.Init();
             LoadApplication(new App());
-            
+
             RegisterServices();
-            
+
             return base.FinishedLaunching(app, options);
         }
 
@@ -39,6 +39,7 @@ namespace XamarinBTScanner.iOS
         {
             DependencyService.Register<IBluetoothPermissionService, BluetoothPermissionService>();
             DependencyService.Register<IBluetoothService, BluetoothService>();
+            DependencyService.Register<IBluetoothAdapter, BluetoothAdapter>();
         }
     }
 }

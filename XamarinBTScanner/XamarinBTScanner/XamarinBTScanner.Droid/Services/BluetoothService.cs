@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Android.Bluetooth;
 using Android.Content;
 using Xamarin.Forms;
@@ -22,7 +23,7 @@ namespace XamarinBTScanner.Droid.Services
         {
             _bluetoothManager = _context.GetSystemService(Context.BluetoothService) as BluetoothManager;
             _bluetoothAdapter =
-                new Lazy<IBluetoothAdapter>(GetNativeAdapter, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+                new Lazy<IBluetoothAdapter>(GetNativeAdapter, LazyThreadSafetyMode.PublicationOnly);
         }
 
         public IBluetoothAdapter Adapter => _bluetoothAdapter.Value;

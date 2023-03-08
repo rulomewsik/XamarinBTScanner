@@ -21,9 +21,7 @@ namespace XamarinBTScanner.Droid.Adapters
         private readonly ScannerCallback _scannerCallback;
 
         public bool IsScanning { get; private set; }
-        public ObservableCollection<BluetoothDevice> DiscoveredDevices { get; set; }
-
-
+        public ObservableCollection<BluetoothDevice> DiscoveredDevices { get; private set; }
         public event EventHandler<BluetoothDevice> DiscoveredDevice;
         public event EventHandler ScanTimeout;
         public event EventHandler<string> ScanFailed;

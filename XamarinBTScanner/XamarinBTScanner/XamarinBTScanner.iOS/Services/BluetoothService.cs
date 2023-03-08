@@ -1,65 +1,38 @@
 using System;
-using System.Threading.Tasks;
+using System.Threading;
 using CoreBluetooth;
+using CoreFoundation;
 using Xamarin.Forms;
+using XamarinBTScanner.Contracts.Adapters;
 using XamarinBTScanner.Contracts.Services;
+using XamarinBTScanner.iOS.Adapters;
+using XamarinBTScanner.iOS.Contracts.Services.Delegates;
 using XamarinBTScanner.iOS.Services;
-using XamarinBTScanner.Models;
+using XamarinBTScanner.iOS.Services.Delegates;
 
 [assembly: Dependency(typeof(BluetoothService))]
 
 namespace XamarinBTScanner.iOS.Services
 {
-    public class BluetoothService : IDisposable, IBluetoothService
+    public class BluetoothService : IBluetoothService
     {
-        private readonly CBCentralManager _manager = new CBCentralManager();
-
-        public EventHandler<CBCentralManagerState> StateChanged;
-        public event EventHandler<BluetoothDevice> DiscoveredDevice;
+        private readonly CBCentralManager _centralManager;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
+        private readonly Lazy<IBluetoothAdapter> _bluetoothAdapter;
 
         public BluetoothService()
         {
-            _manager.DiscoveredPeripheral += ManagerOnDiscoveredPeripheral;
-            _manager.UpdatedState += ManagerOnUpdatedState;
+            var cmDelegate = new BleCentralManagerDelegate();
+            _bleCentralManagerDelegate = cmDelegate;
+            _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue);
+
+            _bluetoothAdapter =
+                new Lazy<IBluetoothAdapter>(GetNativeAdapter, LazyThreadSafetyMode.PublicationOnly);
         }
 
-        private void ManagerOnDiscoveredPeripheral(object sender, CBDiscoveredPeripheralEventArgs e)
-        {
-            var discoveredDevice = new BluetoothDevice
-            {
-                Name = e.Peripheral.Name,
-                Identifier = Guid.Parse(e.Peripheral.Identifier.AsString()),
-                Rssi = e.RSSI.Int32Value
-            };
+        public IBluetoothAdapter Adapter => _bluetoothAdapter.Value;
 
-            DiscoveredDevice?.Invoke(this, discoveredDevice);
-        }
-
-        private void ManagerOnUpdatedState(object sender, EventArgs e)
-        {
-            StateChanged?.Invoke(sender, _manager.State);
-        }
-
-        public async Task StartScanner(int scanDuration, string serviceUuid)
-        {
-            var uuids = string.IsNullOrEmpty(serviceUuid)
-                ? Array.Empty<CBUUID>()
-                : new[] {CBUUID.FromString(serviceUuid)};
-            _manager.ScanForPeripherals(uuids);
-
-            await Task.Delay(scanDuration);
-            StopScanner();
-        }
-
-        public void StopScanner()
-        {
-            _manager.StopScan();
-        }
-
-        public void Dispose()
-        {
-            _manager.DiscoveredPeripheral -= ManagerOnDiscoveredPeripheral;
-            _manager.UpdatedState -= ManagerOnUpdatedState;
-        }
+        private IBluetoothAdapter GetNativeAdapter() =>
+            new BluetoothAdapter(_centralManager, _bleCentralManagerDelegate);
     }
 }

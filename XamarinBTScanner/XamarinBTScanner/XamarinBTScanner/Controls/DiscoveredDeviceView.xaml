@@ -8,7 +8,7 @@
     x:Name="DiscoveredDeviceControl">
     <ContentView.Content>
         <StackLayout
-            Padding="8"
+            Padding="8,16"
             BackgroundColor="#100E1E"
             Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
@@ -28,7 +28,7 @@
                     FontAttributes="Bold"
                     FontSize="12"
                     HorizontalOptions="End"
-                    Text="{Binding Device.Rssi, Source={x:Reference DiscoveredDeviceControl}}"
+                    Text="{Binding Device.Rssi, StringFormat='{0} dBm', Source={x:Reference DiscoveredDeviceControl}}"
                     TextColor="White"
                     VerticalOptions="CenterAndExpand" />
             </StackLayout>
@@ -37,7 +37,7 @@
                     FontAttributes="Bold"
                     FontSize="12"
                     HorizontalOptions="FillAndExpand"
-                    Text="{Binding Device.Address, StringFormat='Address: {0}', Source={x:Reference DiscoveredDeviceControl}}"
+                    Text="{Binding Device.Address, StringFormat='Identifier: {0}', Source={x:Reference DiscoveredDeviceControl}}"
                     TextColor="White"
                     VerticalOptions="CenterAndExpand" />
             </StackLayout>
