@@ -102,9 +102,6 @@
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-        <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
-            <Visible>false</Visible>
-        </ImageAsset>
     </ItemGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -126,6 +123,18 @@
             <Project>{B14663F3-1C0B-4BA7-BFD6-256ACFEFB41C}</Project>
             <Name>XamarinBTScanner</Name>
         </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
+      <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-App-29x29@2x.png" />
+      <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-App-29x29@3x.png" />
+      <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-App-60x60@2x.png" />
+      <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-App-60x60@3x.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="Resources\launch_turtle.png" />
+      <BundleResource Include="Resources\launch_turtle@2x.png" />
+      <BundleResource Include="Resources\launch_turtle@3x.png" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

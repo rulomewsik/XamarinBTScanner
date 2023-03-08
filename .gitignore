@@ -397,3 +397,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 XamarinBTScanner/.idea/.idea.XamarinBTScanner/.idea/
+
+XamarinBTScanner/XamarinBTScanner/.DS_Store
+
+XamarinBTScanner/XamarinBTScanner/XamarinBTScanner.iOS/.DS_Store
+
+XamarinBTScanner/XamarinBTScanner/XamarinBTScanner.iOS/Assets.xcassets/.DS_Store
