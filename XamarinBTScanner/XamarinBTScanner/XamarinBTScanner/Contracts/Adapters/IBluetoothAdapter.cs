@@ -35,7 +35,7 @@ namespace XamarinBTScanner.Contracts.Adapters
         event EventHandler<string> ScanFailed;
         
         /// <summary>
-        /// 
+        /// Starts the scanner with a timeout in milliseconds
         /// </summary>
         /// <param name="scanTimeout"></param>
         /// <param name="cancellationToken"></param>
@@ -43,7 +43,7 @@ namespace XamarinBTScanner.Contracts.Adapters
         Task StartScanner(int scanTimeout, CancellationToken cancellationToken = default);
         
         /// <summary>
-        /// 
+        /// Stops the current scanner process.
         /// </summary>
         Task StopScanner();
     }

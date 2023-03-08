@@ -54,7 +54,7 @@ public class DialogService : IDialogService
     /// <param name="title">Title.</param>
     /// <param name="buttonText">Button text.</param>
     /// <returns>Awaitable.</returns>
-    private async Task InternalShowAlertAsync(string message, string title, string buttonText)
+    private static async Task InternalShowAlertAsync(string message, string title, string buttonText)
     {
         await UserDialogs.Instance.AlertAsync(message,
             title,
