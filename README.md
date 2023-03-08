@@ -2,21 +2,20 @@
 Xamarin Code Challenge
 
 # Introduction 
-Xamarin.Forms project with a simple scanner without filters—the Bluetooth adapters for each platform were implemented natively.
+Xamarin.Forms project with a simple scanner without filters.
+The Bluetooth adapters were implemented in each platform, Xamarin.iOS and Xamarin.Android.
 
 # Getting Started
 1. Clean and rebuild the solution to generate images from SVG icons
-2. You can deploy to an iPhone using a Personal Team provisioning profile
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+2. You can deploy to an iPhone using a Personal Team Provisioning Profile
 
 ## Requirements:
-## Xamarin.Forms (5.0.0.2012)
+## Xamarin.Forms (5.0.0.2578)
     - Base Language C# Latest
     - .NetStandard (2.0.3)
     - Xamarin.Essentials (1.7.5)
     - FFImageLoading.Forms (2.4.11.982)
+    - Acr.UserDialogs (7.2.0.564)
 ## Xamarin.Android
     - Bundle Identifier: com.improving.XamarinBTScanner
     - Version: 13.1.0.1
