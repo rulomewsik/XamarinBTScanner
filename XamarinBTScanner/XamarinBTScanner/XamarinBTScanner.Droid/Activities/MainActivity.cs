@@ -8,9 +8,11 @@ using XamarinBTScanner.Contracts.Services;
 using XamarinBTScanner.Droid.Services;
 using Platform = Xamarin.Essentials.Platform;
 
-namespace XamarinBTScanner.Droid
+namespace XamarinBTScanner.Droid.Activities
 {
-    [Activity(Label = "XamarinBTScanner", Theme = "@style/MainTheme", MainLauncher = true,
+    [Activity(
+        Label = "Turtle Scanner",
+        Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
